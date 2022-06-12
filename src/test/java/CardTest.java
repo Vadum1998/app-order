@@ -13,7 +13,6 @@ public class CardTest {
     private WebDriver driver;
 
 
-
     @BeforeAll
     public static void setUpAll() {
         System.setProperty("webdriver.chrome.driver", "driver/win/chromedriver.exe");
@@ -21,11 +20,11 @@ public class CardTest {
 
     @BeforeEach
     public void setUp() {
-        //ChromeOptions options = new ChromeOptions();
-        //options.addArguments("--disable-dev-shm-usage");
+        ChromeOptions options = new ChromeOptions();
+        // options.addArguments("--disable-dev-shm-usage");
         //options.addArguments("--no-sandbox");
         //options.addArguments("--headless");
-        driver = new ChromeDriver();
+        driver = new ChromeDriver(options);
     }
 
     @AfterEach
