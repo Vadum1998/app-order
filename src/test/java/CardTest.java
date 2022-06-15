@@ -1,3 +1,4 @@
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,8 +16,10 @@ public class CardTest {
 
     @BeforeAll
     public static void setUpAll() {
-        System.setProperty("webdriver.chrome.driver", "driver/win/chromedriver.exe");
+        WebDriverManager.chromedriver().setup();
     }
+
+
 
     @BeforeEach
     public void setUp() {
@@ -34,7 +37,7 @@ public class CardTest {
     }
 
     @Test
-    void ShouldSendForm() {//открыть драйвер
+    void shouldSendForm() {//открыть драйвер
         driver.get("http://localhost:9999");
         //System.out.println("");
         //по type
@@ -47,7 +50,7 @@ public class CardTest {
         driver.findElement(By.cssSelector("button")).click();
         // driver.findElement(By.className("checkbox__box")).click();//Галочка
         // driver.findElement(By.tagName("button")).click();// Продоложить
-        String actualText = driver.findElement(By.cssSelector(".paragraph_theme_alfa-on-white")).getText().trim();
+        String actualText = driver.findElement(By.cssSelector("[data-test-id='order-success']")).getText().trim();
         String expected = "Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.";
         assertEquals(expected, actualText);
 
@@ -55,7 +58,7 @@ public class CardTest {
     }
 
     @Test
-    void ShouldSendForm2() {//открыть драйвер
+    void shouldSendForm2() {//открыть драйвер
         driver.get("http://localhost:9999");
         driver.findElement(By.cssSelector("[type='text']")).sendKeys("Дубровин-Вадим");//Ф.И.
         driver.findElement(By.cssSelector("[type='tel']")).sendKeys("+79012345678");//Телефон
@@ -63,7 +66,7 @@ public class CardTest {
         driver.findElement(By.cssSelector(".checkbox__box")).click();
         driver.findElement(By.cssSelector("button")).click();
 
-        String actualText = driver.findElement(By.cssSelector(".paragraph_theme_alfa-on-white")).getText().trim();
+        String actualText = driver.findElement(By.cssSelector("[data-test-id='order-success']")).getText().trim();
 
         String expected = "Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.";
         assertEquals(expected, actualText);
